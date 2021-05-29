@@ -10,6 +10,5 @@ public static void main(String[] args) {
 		pattern.add(Double.parseDouble(arg));
 	}
 	System.out.println(pattern);
-	
 }
 }

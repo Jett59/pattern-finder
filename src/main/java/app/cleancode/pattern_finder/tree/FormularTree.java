@@ -6,8 +6,8 @@ public class FormularTree {
 public static class FormularElement {
 	public FormularElement next;
 	public FormularTree nextTree;
-	public final int arg;
-	public final Operation operation;
+	public int arg;
+	public Operation operation;
 	
 	public FormularElement(Operation operation, int arg) {
 		this.arg = arg;
@@ -23,9 +23,11 @@ public static class FormularElement {
 	}
 }
 public final FormularElement first;
+public FormularElement last;
 
 public FormularTree(int initialNumber) {
 	first = new FormularElement(Operation.PLUS, initialNumber);
+	last = first;
 }
 
 public int evaluate (int n) {
@@ -33,8 +35,10 @@ public int evaluate (int n) {
 	FormularElement next = first;
 	while (next != null) {
 		int arg = next.arg;
-		if (arg == Integer.MIN_VALUE && next.nextTree != null) {
+		if (next.nextTree != null) {
 			arg = next.nextTree.evaluate(n);
+		}else if (arg == Integer.MIN_VALUE) {
+			arg = n;
 		}
 		switch (next.operation) {
 		case PLUS: {
@@ -61,5 +65,9 @@ public int evaluate (int n) {
 		next = next.next;
 	}
 	return result;
+}
+public void addNext (FormularElement element) {
+	last.next = element;
+	last = element;
 }
 }
