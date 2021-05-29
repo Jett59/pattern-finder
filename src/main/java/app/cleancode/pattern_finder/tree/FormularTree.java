@@ -70,4 +70,23 @@ public void addNext (FormularElement element) {
 	last.next = element;
 	last = element;
 }
+@Override
+	public String toString() {
+		String result = "";
+		FormularElement tmp = first;
+		while (tmp != null) {
+			result += " ";
+			result += tmp.operation.toString();
+			result += " ";
+			if (tmp.nextTree != null) {
+				result += String.format("(%s)", tmp.nextTree.toString());
+			}else if (tmp.arg == Integer.MIN_VALUE) {
+				result += "n";
+			}else {
+				result += Integer.toString(tmp.arg);
+			}
+			tmp = tmp.next;
+		}
+		return result;
+	}
 }
